@@ -47,8 +47,26 @@ plt.show()
 
 # =================================================
 
+# Evaluation the models performance ---> mean squared error 
+
 from sklearn.metrics import mean_squared_error
 mse = mean_squared_error(Y_actual,Y_pred)
 
-print("Mean Squared Error(mse) ",mse.round(4))
-print("Root Mean Squared Error(RMSE) ",np.sqrt(mse).round(4))
+print("Mean Squared Error(mse) ",mse.round(4))  # 17.8667
+print("Root Mean Squared Error(RMSE) ",np.sqrt(mse).round(4))  # 4.2269
+
+
+# =================================================
+
+# Accuracy percentage of model ---> r2 score 
+
+from sklearn.metrics import r2_score
+r2 = r2_score(Y_actual,Y_pred).round(2)
+
+print("R2 score ",r2)   # 0.76
+
+# R2 > 90% ---> Excellent Model
+#    > 80% ---> Good Model
+#    > 70% ---> Average Model 
+#    < 70% ---> Poor Model 
+
