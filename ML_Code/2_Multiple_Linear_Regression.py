@@ -127,3 +127,127 @@ print("Root Mean Squared Error(RMSE) ",np.sqrt(mse).round(4))  # 4.2269
 # Accuracy percentage of model ---> r2 score 
 r2 = r2_score(Y,Y_pred).round(2)
 print("R2 score ",r2)   # 0.76
+
+
+
+
+# ======================================================
+
+# To calculate r square to find VIF value (varience influence factor)
+
+# VIF < 5  ---> MODEL IS EXCELLENT I.E. NO MULTICOLLINEARITY ISSUES 
+#     < 10 ---> MODEL IS HAVING SLIGHTLY MULTICOLLINEARITY ISSUES , BUT STILL ACCEPTABLE
+#     > 10 ---> MODEL CANNOT BE ACCEPTABLE 
+
+
+import statsmodels.formula.api as smf 
+model = smf.ols("Y ~ X",data = df).fit() 
+# model = smf.ols("HP ~ VOL",data = df).fit()
+r2 = model.rsquared
+print("R squared: ",r2.round(3))  # 75.1
+
+
+# Residual analysis 
+# -----------------
+
+# every X variable should follow normal distribution ---> how to check 
+# generally we uses histogram to check ---> if it gives bell symmetric 
+# shape ---> then it is following normal distribution 
+
+# use the huge data it is difficult so we can check through 
+# residual analysis
+
+# from the model what we fitted we can calculate 
+# the errors (residuals)
+model.resid   # Yactual - Ypred 
+
+# then will these residual values we can construct histogram 
+
+model.resid.hist()
+model.resid.skew() 
+
+
+
+# Influencer points
+# -----------------
+
+# influencing on regression line 
+# It influences model fitting 
+
+# so we need to remove these points 
+
+# how to identify it ?? 
+# through scatter plot we can plot only 2 points ---> then how ??
+
+
+
+# Cook's Distance 
+# ---------------
+
+# calculates distance between every data point to remaining all data points
+# and finds the Cook's distance 
+
+(cooks, pvalue) = model.get_influence().cooks_distance 
+
+df["cooks"] = pd.DataFrame(cooks)
+
+df.head()
+
+# plot the influencers values using stem plot 
+
+import matplotlib.pyplot as plt 
+fig = plt.subplots(figsize=(20,7))
+plt.stem(np.arange(len(df)),df["cooks"])
+plt.xlabel('Row Index')
+plt.ylabel('Cooks Distance')
+plt.show()
+
+
+
+# Leverage Value
+# --------------
+
+# we have a method to identify which are the points to be considered as 
+# highly influenced points, that cutoff will take from the leverage value 
+
+
+k = 2 # number of columns used for model fitting
+n = len(df)
+
+leverage_cutoff = 3*((k+1)/n)
+
+# points which are greater than leverage value are treated as 
+# influencer points 
+df[df['cooks'] > leverage_cutoff] 
+
+#      HP        MPG  VOL          SP         WT     cooks
+# 70  280  19.678507   50  164.598513  15.823060  0.178098
+# 76  322  36.900000   50  169.598513  16.132947  1.654415
+# 78  263  34.000000   50  151.598513  15.769625  0.137228
+# 79  295  19.833733  119  167.944460  39.423099  0.230841
+
+
+# simply drop the rows which are recognized as highly influenced points 
+df.drop([70,76,78,79],inplace=True)
+
+
+#####################################################
+
+# Again fit the model once again with out influencer points 
+
+Y = df['MPG']
+X = df[['HP','VOL']]
+
+import statsmodels.formula.api as smf 
+model = smf.ols("Y ~ X",data=df).fit()
+r2 = model.rsquared
+print("R square : ",r2.round(3))  # 84.4
+
+
+
+########################################################
+
+# Model contains R square with 75.1 including all data points 
+# Model contains R square with 84.4 excluding 4 data points 
+
+########################################################
