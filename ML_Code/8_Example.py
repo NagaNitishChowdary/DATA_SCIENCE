@@ -227,7 +227,7 @@ Y_Pred_test = LR.predict(X_test)
 
 # step 8 ---> Evaluating the model using metrics 
 
-from sklearn.metrics import mean_squared_error,r2_score
+from sklearn.metrics import mean_squared_error
 training_error = mean_squared_error(Y_train,Y_Pred_train)
 test_error = mean_squared_error(Y_test,Y_Pred_test)
 
@@ -237,8 +237,31 @@ print("Training_Error : Root Mean Squared Error(RMSE) ",np.sqrt(training_error).
 print("Test_Error : Mean Squared Error(mse) ",test_error.round(4))
 print("Test_Error : Root Mean Squared Error(RMSE) ",np.sqrt(test_error).round(4))  
 
-print("r2_score Training : ",r2_score(Y_train,Y_Pred_train))
-print("r2_score Test : ",r2_score(Y_test,Y_Pred_test))
-
 
 # ===================================================================
+
+# STEP 9 ---> VALIDATION SET METHOD 
+
+# Validating our model again and again for n number of times and from the 
+# results, we will see which one result is highly repeated value that is 
+# going to be our final value 
+
+# Will write down our entire code in to *** for *** loop and we will 
+# save the results in to a variable, then calculate the average of above value
+
+training_err = []
+test_err = [] 
+
+for i in range(1,501):
+    X_train, X_test, Y_train, Y_test = train_test_split(X_SS,Y,test_size=0.30,random_state=i)
+    model = LinearRegression() 
+    model.fit(X_train,Y_train)
+    
+    Y_Pred_train = model.predict(X_train) 
+    Y_Pred_test = model.predict(X_test)
+    
+    training_err.append(mean_squared_error(Y_train,Y_Pred_train))
+    test_err.append(mean_squared_error(Y_test,Y_Pred_test))
+
+print("Cross_Validation : 1 -> Validation_Set_Method : Training_error " , np.mean(training_err).round(2))
+print("Cross_Validation : 1 -> Validation_Set_Method : Test_error " , np.mean(test_err).round(2))
