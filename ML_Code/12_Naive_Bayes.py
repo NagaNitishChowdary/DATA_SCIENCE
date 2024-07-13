@@ -75,7 +75,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(X,Y)
 from sklearn.naive_bayes import MultinomialNB 
 MNB = MultinomialNB()
 
-MNB.fit(X_train.values,Y_train.values)
+MNB.fit(X_train,Y_train)
 
 Y_Pred_train = MNB.predict(X_train)
 Y_Pred_test = MNB.predict(X_test)
@@ -129,3 +129,21 @@ print("Naive_Bayes --> Bagging_Classifier ---> Test_accuracy : ",accuracy_score(
 
 # Training_Acc = 0.82 
 # Test_acc = 0.84
+
+
+# Accuracy is some what low so try it with Decision Tree Classifier 
+
+from sklearn.tree import DecisionTreeClassifier
+DTC = DecisionTreeClassifier()
+
+DTC.fit(X_train,Y_train)
+
+Y_Pred_train = DTC.predict(X_train)
+Y_Pred_test = DTC.predict(X_test)
+
+print("Decision_Trees ---> Training_accuracy : ",accuracy_score(Y_Pred_train,Y_train).round(2))
+print("Decision_Trees --> Test_accuracy",accuracy_score(Y_Pred_test,Y_test).round(2))
+
+
+# Training_acc = 1.0 ==> 100%
+# Testing_acc = 1.0 ===> 100%
