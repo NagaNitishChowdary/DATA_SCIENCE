@@ -10,7 +10,7 @@ import pandas as pd
 
 # COLLECTING THE DATA 
 
-df = pd.read_csv('12_mushroom.csv')
+df = pd.read_csv('12_13_mushroom.csv')
 df
 
 
