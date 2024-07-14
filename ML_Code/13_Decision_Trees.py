@@ -81,6 +81,7 @@ DTC.fit(X_train,Y_train)
 Y_Pred_train = DTC.predict(X_train)
 Y_Pred_test = DTC.predict(X_test)
 
+from sklearn.metrics import accuracy_score
 print("Decision_Trees ---> Training_accuracy : ",accuracy_score(Y_Pred_train,Y_train).round(2))
 print("Decision_Trees --> Test_accuracy",accuracy_score(Y_Pred_test,Y_test).round(2))
 
