@@ -88,14 +88,6 @@ print("Decision_Tree ---> Training_accuracy : ",accuracy_score(Y_train,Y_Pred_tr
 print("Decision_Tree ---> Test_accuracy : ",accuracy_score(Y_test,Y_Pred_test).round(2))
 
 
-# HERE TRAINING ACCURACY IS 100%
-# TESTING ACCURACY IS 70%
-
-# SO MUCH DIFFERENCE BETWEEN TRAINING AND TESTING ACCURACY , 
-# SO VARIABLES MAY BE ADDED UNNECCESRILY ---> MODEL OVERFITTED 
-
-
-
 # Visualizing the decision tree 
 from sklearn import tree 
 import matplotlib.pyplot as plt 
@@ -104,5 +96,29 @@ tree.plot_tree(DTC,filled=True)
 
 node_count = DTC.tree_.node_count 
 max_depth = DTC.tree_.max_depth 
-print("Number of nodes: ",node_count)
-print("Depth of Tree: ",max_depth)
+print("Number of nodes: ",node_count)  # 101
+print("Depth of Tree: ",max_depth)  # 10 
+
+# HERE TRAINING ACCURACY IS 100%
+# TESTING ACCURACY IS 70%
+
+# SO MUCH DIFFERENCE BETWEEN TRAINING AND TESTING ACCURACY , 
+# SO VARIABLES MAY BE ADDED UNNECCESRILY ---> MODEL OVERFITTED 
+
+from sklearn.ensemble import BaggingClassifier 
+bag_clf = BaggingClassifier(estimator = DTC,
+                            n_estimators=100,
+                            max_samples=0.7,
+                            max_features=0.8,
+                            random_state=42)
+
+bag_clf.fit(X_train, Y_train)
+
+Y_Pred_train = bag_clf.predict(X_train)
+Y_Pred_test = bag_clf.predict(X_test)
+
+print("Decision_Trees --> Bagging_Classifier ---> Training_accuracy : ",accuracy_score(Y_Pred_train,Y_train).round(2))
+print("Decision_Trees --> Bagging_Classifier ---> Test_accuracy : ",accuracy_score(Y_Pred_test,Y_test).round(2)) 
+
+# Training accuracy ===> 100%
+# Testing accuracy ===> 82%  ---> some what improved 
