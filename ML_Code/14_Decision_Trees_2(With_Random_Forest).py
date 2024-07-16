@@ -121,4 +121,24 @@ print("Decision_Trees --> Bagging_Classifier ---> Training_accuracy : ",accuracy
 print("Decision_Trees --> Bagging_Classifier ---> Test_accuracy : ",accuracy_score(Y_Pred_test,Y_test).round(2)) 
 
 # Training accuracy ===> 100%
-# Testing accuracy ===> 82%  ---> some what improved 
+# Testing accuracy ===> 82%  ---> some what improved in controlling overfitted model 
+
+
+
+
+# Random Forest (same as Bagging (BootStrap Aggregation)) but only applicable 
+# to Decision Trees 
+
+from sklearn.ensemble import RandomForestClassifier
+RFC = RandomForestClassifier(n_estimators=100 , max_samples=0.7, max_features = 0.8, random_state = 42)
+RFC.fit(X_train,Y_train)
+
+Y_Pred_train = RFC.predict(X_train)
+Y_Pred_test = RFC.predict(X_test)
+
+print("Decision_Trees --> Random_Forest ---> Training_accuracy : ",accuracy_score(Y_Pred_train,Y_train))
+print("Decision_Trees --> Random_Forest ---> Test_accuracy : ",accuracy_score(Y_Pred_test,Y_test))
+
+# Training_accuracy = 99%
+# Test_accuracy = 81.25%  ---> bagging is doing better than random forest 
+
