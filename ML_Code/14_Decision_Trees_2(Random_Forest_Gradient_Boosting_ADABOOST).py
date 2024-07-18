@@ -142,3 +142,26 @@ print("Decision_Trees --> Random_Forest ---> Test_accuracy : ",accuracy_score(Y_
 # Training_accuracy = 99%
 # Test_accuracy = 81.25%  ---> bagging is doing better than random forest 
 
+
+
+# =======================================================================
+
+# SEQUENCIAL BAGGING METHODS 
+
+# =======================================================================
+
+# GRADIENT BOOSTING CLASSIFIER 
+
+from sklearn.ensemble import GradientBoostingClassifier
+
+GBC = GradientBoostingClassifier(n_estimators=100,max_features=0.8,random_state=42,learning_rate=0.1)
+GBC.fit(X_train,Y_train)
+
+Y_Pred_train = GBC.predict(X_train)
+Y_Pred_test = GBC.predict(X_test) 
+
+print("Decision_Trees --> Gradient_Boosting ---> Training_accuracy : ",accuracy_score(Y_Pred_train,Y_train).round(2))
+print("Decision_Trees --> Gradient_Boosting ---> Test_accuracy : ",accuracy_score(Y_Pred_test,Y_test).round(2))
+
+# Training_accuracy ===> 100% 
+# Test_accuracy ===> 90% ---> far better than bagging and random forest
