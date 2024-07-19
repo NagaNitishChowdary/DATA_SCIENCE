@@ -105,6 +105,10 @@ print("Depth of Tree: ",max_depth)  # 10
 # SO MUCH DIFFERENCE BETWEEN TRAINING AND TESTING ACCURACY , 
 # SO VARIABLES MAY BE ADDED UNNECCESRILY ---> MODEL OVERFITTED 
 
+# ==================================================================
+
+# Bagging Classifier
+
 from sklearn.ensemble import BaggingClassifier 
 bag_clf = BaggingClassifier(estimator = DTC,
                             n_estimators=100,
@@ -189,3 +193,19 @@ print("Decision_Trees ---> AdaBoost ---> Test_accuracy : ",accuracy_score(Y_Pred
 # Test_accuracy ===> 88%    ----> Same as Gradient Boosting
 
 # =========================================================================
+
+# XG Boost(Extremely Gradient Boosting Technique) ---> works on google colab due to problem of installation of xgboost on spyder
+import xgboost as xgb 
+
+xgb_classifier = xgb.XGBClassifier(n_estimators=100,random_state=42,learning_rate=0.3,gamma=0,reg_alpha=0,reg_lambda=1)
+
+xgb_classifier.fit(X_train,Y_train)
+     
+Y_Pred_train = xgb_classifier.predict(X_train)
+Y_Pred_test = xgb_classifier.predict(X_test)
+
+print("XGBoost ---> Training_accuracy : ",accuracy_score(Y_train,Y_Pred_train).round(2))
+print("XGBoost ---> Test_accuracy : ",accuracy_score(Y_test,Y_Pred_test).round(2))
+
+# Training_Accuracy ===> 100%
+# Testing_Accuracy ===> 86%
