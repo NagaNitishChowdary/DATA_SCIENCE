@@ -123,7 +123,7 @@ print("Decision_Trees --> Bagging_Classifier ---> Test_accuracy : ",accuracy_sco
 # Training accuracy ===> 100%
 # Testing accuracy ===> 82%  ---> some what improved in controlling overfitted model 
 
-
+# ===============================================================================
 
 
 # Random Forest (same as Bagging (BootStrap Aggregation)) but only applicable 
@@ -165,3 +165,27 @@ print("Decision_Trees --> Gradient_Boosting ---> Test_accuracy : ",accuracy_scor
 
 # Training_accuracy ===> 100% 
 # Test_accuracy ===> 90% ---> far better than bagging and random forest
+
+
+# =====================================================================
+
+
+# ADA_BOOST --> Adaptive Boosting Technique 
+
+# focused on samples which are incorrectly predicted on the previous set of examples. 
+
+from sklearn.ensemble import AdaBoostClassifier
+ABC = AdaBoostClassifier(n_estimators=100,random_state=42)
+
+ABC.fit(X_train,Y_train)
+
+Y_Pred_train = ABC.predict(X_train)
+Y_Pred_test = ABC.predict(X_test)
+
+print("Decision_Trees ---> AdaBoost ---> Training_accuracy : ",accuracy_score(Y_Pred_train,Y_train).round(2))
+print("Decision_Trees ---> AdaBoost ---> Test_accuracy : ",accuracy_score(Y_Pred_test,Y_test).round(2))
+
+# Training_accuracy ===> 100%
+# Test_accuracy ===> 88%    ----> Same as Gradient Boosting
+
+# =========================================================================
