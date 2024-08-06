@@ -195,3 +195,54 @@ plt.show()
 
 # Here User used "good" ---> the user may used "not good", "very good". 
 
+t7
+len(t7)
+# 2113 
+
+
+# we will use bigrams ---> "apple is", "is very" , "very good", "good fruit" ...
+
+doc = " ".join(t7)
+doc
+
+
+from sklearn.feature_extraction.text import CountVectorizer
+
+# Create a CountVectorizer object with ngram_range=(2, 2) to extract bigrams
+vect = CountVectorizer(ngram_range=(2,2))
+
+# Fit the vectorizer to the document 
+counts = vect.fit_transform([doc])
+
+
+# Get the vocabulary of the vectorizer 
+vocab = vect.get_feature_names_out() 
+vocab
+# array(['10 11', '10 12', '10 anti', ..., 'you need', 'youtube expensive',
+#       'yr without'], dtype=object)
+
+# Get the top 20(highest repeated) bigram counts 
+top_20_bigrams = counts.toarray().sum(axis=0).argsort()[-20:]
+top_20_bigrams
+# array([ 573, 1739,   57, 1342,  671,  828,  437, 1743, 1233, 1823, 1750,
+#        646,  120, 1013, 1598, 1545,  830, 1544,  216, 1635], dtype=int64)
+
+# Create a bar graph of the top 20 bigram counts 
+plt.figure(figsize=(15,7))
+plt.bar(vocab[top_20_bigrams], counts.toarray()[0,top_20_bigrams])
+plt.xticks(rotation=90)
+plt.xlabel("Bigrams")
+plt.ylabel("Count")
+plt.title("Top 20 Bigram Counts")
+plt.show()
+
+
+
+# Using this graph, we observed that highest frequency word is "stopped working" 
+# ---> used 6 times,   service center ---> 6 times (negative)
+# light weight ---> 4 times (positive)
+
+
+# ---> Using this bigrams we understood that product quality needed to be improved.
+
+# ===========================================================================
