@@ -68,12 +68,15 @@ x = df['message']
 # =============================================================================
 
 # feature extraction
-# Tf (Term Frequency) , idf(Inverse document frequency)  ---> eg. good -> 3 (times)
+# Tf (Term Frequency) , idf(Inverse document frequency)  ---> eg. good -> row1 : 0.75 , row2 : 0.69 ...
 from sklearn.feature_extraction.text import TfidfVectorizer
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(x)
 
 X
+# <5572 * 8898 sparse matrix of type '<class 'numpy.float64'>'
+# with 47497 stored elements in Compressed Sparse Row format
+
 
 # =============================================================================S
 
@@ -82,9 +85,13 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
 
 print(f"X_train shape: {X_train.shape}")
+# (4457, 8898)
 print(f"Y_train shape: {Y_train.shape}")
+# (4457, )
 print(f"X_test shape: {X_test.shape}")
+# (1115, 8898)
 print(f"Y_test shape: {Y_test.shape}")
+# (1115, )
 
 #==============================================================================
 
@@ -92,6 +99,7 @@ from sklearn.naive_bayes import MultinomialNB
 
 model = MultinomialNB()
 model.fit(X_train, Y_train)
+
 #==============================================================================
 # prompt: predict the model using training data and test data
 
@@ -107,7 +115,9 @@ accuracy_train = accuracy_score(Y_train, y_pred_train)
 accuracy_test = accuracy_score(Y_test, y_pred_test)
 
 print(f"Accuracy on training data: {accuracy_train.round(2)}")
+# 0.97
 print(f"Accuracy on testing data: {accuracy_test.round(2)}")
+# 0.97
 
 
 #==============================================================================
