@@ -122,6 +122,7 @@ print(f"Accuracy on testing data: {accuracy_test.round(2)}")
 
 #==============================================================================
 
+# Multi Layer Perceptron ---> neural networks 
 from sklearn.neural_network import MLPClassifier
 model = MLPClassifier()
 model.fit(X_train, Y_train)
@@ -133,6 +134,8 @@ from sklearn.metrics import accuracy_score
 accuracy_train = accuracy_score(Y_train, y_pred_train)
 accuracy_test = accuracy_score(Y_test, y_pred_test)
 print(f"Accuracy on training data: {accuracy_train.round(2)}")
+# 100%
 print(f"Accuracy on testing data: {accuracy_test.round(2)}")
+# 98%
 
 # =============================================================================
