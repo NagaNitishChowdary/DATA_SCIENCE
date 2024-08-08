@@ -122,6 +122,17 @@ print(f"Accuracy on testing data: {accuracy_test.round(2)}")
 
 #==============================================================================
 
+# *** We have 8898 columns, which is higher number columns 
+# *** Applying the Machine Learning are not suitable 
+# *** There are high chances that our model becomes overfitting and also 
+# our model may have multicollinear issues. 
+
+# *** When we have such huge number of columns instead of preferring ML 
+# techniques, we will choose Deep Learning techniques. 
+
+
+# When we have less number of columns , we can perform EDA, Data Cleaning 
+
 # Multi Layer Perceptron ---> neural networks 
 from sklearn.neural_network import MLPClassifier
 model = MLPClassifier()
@@ -137,5 +148,6 @@ print(f"Accuracy on training data: {accuracy_train.round(2)}")
 # 100%
 print(f"Accuracy on testing data: {accuracy_test.round(2)}")
 # 98%
+
 
 # =============================================================================
