@@ -69,6 +69,15 @@ x = df['message']
 
 # feature extraction
 # Tf (Term Frequency) , idf(Inverse document frequency)  ---> eg. good -> row1 : 0.75 , row2 : 0.69 ...
+# Tf = (Number of times a term appears in a document)/(Total number of terms in a document)
+
+# IDF measures the importance of a term across multiple documents.
+# IDF = log((Total number of documents)/(Number of documents containing the term))
+
+# If a term appears in many documents, its IDF value will be low, meaning it's not very unique or important. 
+# Conversely, a term that appears in fewer documents will have a higher IDF value.
+
+# TF-IDF=TF×IDF
 from sklearn.feature_extraction.text import TfidfVectorizer
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(x)
