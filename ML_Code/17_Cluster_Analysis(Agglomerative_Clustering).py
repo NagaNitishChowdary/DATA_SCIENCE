@@ -10,6 +10,22 @@ import pandas as pd
  
 df = pd.read_csv('17_shopping_data.csv')
 df
+"""
+     CustomerID   Genre  Age  Annual Income (k$)  Spending Score (1-100)
+0             1    Male   19                  15                      39
+1             2    Male   21                  15                      81
+2             3  Female   20                  16                       6
+3             4  Female   23                  16                      77
+4             5  Female   31                  17                      40
+..          ...     ...  ...                 ...                     ...
+195         196  Female   35                 120                      79
+196         197  Female   45                 126                      28
+197         198    Male   32                 126                      74
+198         199    Male   32                 137                      18
+199         200    Male   30                 137                      83
+
+[200 rows x 5 columns]
+"""
 
 
 df['Age'].describe()
@@ -57,6 +73,22 @@ plt.show()
 
 X = df.iloc[:,3:]
 X
+"""
+     Annual Income (k$)  Spending Score (1-100)
+0                    15                      39
+1                    15                      81
+2                    16                       6
+3                    16                      77
+4                    17                      40
+..                  ...                     ...
+195                 120                      79
+196                 126                      28
+197                 126                      74
+198                 137                      18
+199                 137                      83
+
+[200 rows x 2 columns]
+"""
 
 # =====================================================================
 
